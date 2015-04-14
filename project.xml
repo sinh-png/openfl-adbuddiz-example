@@ -3,7 +3,7 @@
 	<!-- NMML reference: https://gist.github.com/1763850 -->
 	
 	<!-- metadata, make sure 'package' is at least 3 segments (ie. com.mycompany.myproject) -->
-	<meta title="OpenFl-AdBuddiz-Example" package="com.example.adbuddiz" version="1.0.0" company="Hazame (http://www.hazame.com)" />
+	<meta title="OpenFl-AdBuddiz-Example" package="com.example.adbuddiz" version="1.0.0" company="Hazame (http://www.haza.me)" />
 	
 	<!-- output -->
 	<app main="Main" file="OpenFl-AdBuddiz-Example" path="bin" />
