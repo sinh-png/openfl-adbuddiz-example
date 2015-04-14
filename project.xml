@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+	<!-- NMML reference: https://gist.github.com/1763850 -->
+	
+	<!-- metadata, make sure 'package' is at least 3 segments (ie. com.mycompany.myproject) -->
+	<meta title="OpenFl-AdBuddiz-Example" package="com.example.adbuddiz" version="1.0.0" company="Hazame (http://www.hazame.com)" />
+	
+	<!-- output -->
+	<app main="Main" file="OpenFl-AdBuddiz-Example" path="bin" />
+	
+	<window background="#FFFFFF" fps="60" />
+	<window width="800" height="480" unless="mobile" />
+	<window orientation="landscape" vsync="false" antialiasing="0" if="cpp" />
+	
+	<!-- classpath, haxe libs -->
+	<source path="src" />
+	<haxelib name="openfl" />
+	<haxelib name="actuate" />
+	<haxelib name="openfl-adbuddiz" />
+	
+	<!-- AdBuddiz configs -->
+	<setenv name="AdBuddizPublisherKey" value="04efad82-262f-4281-bbda-aec1b4dbb658" /> <!-- Set your publisher key. -->
+	<setenv name="AdBuddizTestModeActive" /> <!-- Active test mode. Remove for release. -->
+	<setenv name="AdBuddizLogLevel" value="Info" /> <!-- If you want to set log level. (Silent, Info and Error) -->
+	
+	<!-- assets -->
+	<icon path="assets/openfl.svg" />
+	<assets path="assets/img" rename="img" />
+	
+	<!-- optimize output
+	<haxeflag name="-dce full" /> -->
+	
+</project>
