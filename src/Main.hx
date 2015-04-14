@@ -16,7 +16,7 @@ import openfl.text.TextFormat;
 
 /**
  * ...
- * @author Hazame (http://www.hazame.com)
+ * @author Hazame (http://www.haza.me)
  */
 
 class Main extends Sprite {
