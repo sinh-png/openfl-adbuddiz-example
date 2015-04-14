@@ -16,6 +16,7 @@
 	<source path="src" />
 	<haxelib name="openfl" />
 	<haxelib name="actuate" />
+	<!-- import openfl-adbuddiz -->
 	<haxelib name="openfl-adbuddiz" />
 	
 	<!-- AdBuddiz configs -->
