@@ -28,6 +28,7 @@ class Main extends Sprite {
 	public function new()  {
 		super();
 		
+		/*******Set up the button and the text log*******/
 		var tf = new TextFormat();
 		tf.size = 20;
 		
@@ -55,6 +56,7 @@ class Main extends Sprite {
 			buttonShowAd.getChildAt(0).visible = false;
 			buttonShowAd.getChildAt(1).visible = true;
 		});
+		//////////////////////////////////////////////////////
 		
 		buttonShowAd.addEventListener(MouseEvent.CLICK, function(e) {
 			//Show ad if it is ready
@@ -75,10 +77,12 @@ class Main extends Sprite {
 		
 		addEventListener(Event.ENTER_FRAME, function(e) {
 			//Check if ad is ready
+			#if adnroid
 			if (AdBuddiz.isReadyToShowAd() && !isAdReady) {
 				isAdReady = true;
 				textLog.text += "\nInitialization completed. Ready to show ad.";
 			}
+			#end
 			
 			if (textLog.height > stage.stageHeight) textLog.y = stage.stageHeight - textLog.height;
 		});
