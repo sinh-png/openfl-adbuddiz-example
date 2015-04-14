@@ -19,7 +19,7 @@
 	<haxelib name="openfl-adbuddiz" />
 	
 	<!-- AdBuddiz configs -->
-	<setenv name="AdBuddizPublisherKey" value="04efad82-262f-4281-bbda-aec1b4dbb658" /> <!-- Set your publisher key. -->
+	<setenv name="AdBuddizPublisherKey" value="TEST_PUBLISHER_KEY" /> <!-- Set your publisher key. -->
 	<setenv name="AdBuddizTestModeActive" /> <!-- Active test mode. Remove for release. -->
 	<setenv name="AdBuddizLogLevel" value="Info" /> <!-- If you want to set log level. (Silent, Info and Error) -->
 	
