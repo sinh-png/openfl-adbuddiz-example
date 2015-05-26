@@ -77,7 +77,7 @@ class Main extends Sprite {
 		
 		addEventListener(Event.ENTER_FRAME, function(e) {
 			//Check if ad is ready
-			#if adnroid
+			#if android
 			if (AdBuddiz.isReadyToShowAd() && !isAdReady) {
 				isAdReady = true;
 				textLog.text += "\nInitialization completed. Ready to show ad.";
