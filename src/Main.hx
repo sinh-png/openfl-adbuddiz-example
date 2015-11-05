@@ -23,12 +23,12 @@ class Main extends Sprite {
 
 	var isAdReady:Bool;
 	var buttonShowAd:Sprite;
+	var buttonShowRewardVideo:Sprite;
 	var textLog:TextField;
 
 	public function new()  {
 		super();
 		
-		/*******Set up the button and the text log*******/
 		var tf = new TextFormat();
 		tf.size = 20;
 		
@@ -39,13 +39,15 @@ class Main extends Sprite {
 		textLog.text = "Example of AdBuddiz for OpenFL.\nInitializing...";
 		addChild(textLog);
 		
+		// Interstitial Ad
+		
 		buttonShowAd = new Sprite();
-		buttonShowAd.addChild(new Bitmap(Assets.getBitmapData("img/button_up.png")));
-		buttonShowAd.addChild(new Bitmap(Assets.getBitmapData("img/button_down.png")));
+		buttonShowAd.addChild(new Bitmap(Assets.getBitmapData("img/button_show_ad_up.png")));
+		buttonShowAd.addChild(new Bitmap(Assets.getBitmapData("img/button_show_ad_down.png")));
 		buttonShowAd.getChildAt(0).visible = true;
 		buttonShowAd.getChildAt(1).visible = false;
 		buttonShowAd.x = stage.stageWidth - buttonShowAd.width - 5;
-		buttonShowAd.y = 5;
+		buttonShowAd.y = stage.stageHeight - buttonShowAd.height - 5;
 		
 		buttonShowAd.addEventListener(MouseEvent.MOUSE_UP, function(e) {
 			buttonShowAd.getChildAt(0).visible = true;
@@ -56,28 +58,28 @@ class Main extends Sprite {
 			buttonShowAd.getChildAt(0).visible = false;
 			buttonShowAd.getChildAt(1).visible = true;
 		});
-		//////////////////////////////////////////////////////
-		
+	
 		buttonShowAd.addEventListener(MouseEvent.CLICK, function(e) {
-			//Show ad if it is ready
 			#if android
+			//Show ad if ready
 			if (isAdReady) AdBuddiz.showAd();
 			#end
 		});
 		
 		addChild(buttonShowAd);
 		
-		//Set ad callbacks
 		#if android
-		AdBuddiz.callback.didShowAd = function() textLog.text += "\nCallback: Show ad.";
-		AdBuddiz.callback.didHideAd = function() textLog.text += "\nCallback: Close ad.";
-		AdBuddiz.callback.didClick = function() textLog.text += "\nCallback: Click on ad.";
-		AdBuddiz.callback.didFailToShowAd = function(error:String) textLog.text += '\nCallback: Failed to show ad. ERROR: $error';
+		//Set ad callbacks
+		
+		AdBuddiz.callback.didShowAd = function() textLog.text += "\nAd Callback: Showed.";
+		AdBuddiz.callback.didHideAd = function() textLog.text += "\nAd Callback: Closed.";
+		AdBuddiz.callback.didClick = function() textLog.text += "\nAd Callback: Clicked.";
+		AdBuddiz.callback.didFailToShowAd = function(error:String) textLog.text += '\nCallback: Failed to show. ERROR: $error';
 		#end
 		
 		addEventListener(Event.ENTER_FRAME, function(e) {
-			//Check if ad is ready
 			#if android
+			//Check if ad is ready
 			if (AdBuddiz.isReadyToShowAd() && !isAdReady) {
 				isAdReady = true;
 				textLog.text += "\nInitialization completed. Ready to show ad.";
@@ -86,6 +88,50 @@ class Main extends Sprite {
 			
 			if (textLog.height > stage.stageHeight) textLog.y = stage.stageHeight - textLog.height;
 		});
+		
+		// Reward Video
+		
+		buttonShowRewardVideo = new Sprite();
+		buttonShowRewardVideo.addChild(new Bitmap(Assets.getBitmapData("img/button_show_reward_video_up.png")));
+		buttonShowRewardVideo.addChild(new Bitmap(Assets.getBitmapData("img/button_show_reward_video_down.png")));
+		buttonShowRewardVideo.getChildAt(0).visible = true;
+		buttonShowRewardVideo.getChildAt(1).visible = false;
+		buttonShowRewardVideo.x = stage.stageWidth - buttonShowAd.width - buttonShowRewardVideo.width - 15;
+		buttonShowRewardVideo.y = buttonShowAd.y;
+		
+		buttonShowRewardVideo.addEventListener(MouseEvent.MOUSE_UP, function(e) {
+			buttonShowRewardVideo.getChildAt(0).visible = true;
+			buttonShowRewardVideo.getChildAt(1).visible = false;
+		});
+		
+		buttonShowRewardVideo.addEventListener(MouseEvent.MOUSE_DOWN, function(e) {
+			buttonShowRewardVideo.getChildAt(0).visible = false;
+			buttonShowRewardVideo.getChildAt(1).visible = true;
+		});
+	
+		buttonShowRewardVideo.addEventListener(MouseEvent.CLICK, function(e) {
+			#if android
+			//Fetch reward video
+			AdBuddiz.rewardedVideo.fetch();
+			textLog.text += "\nFetching reward video...";
+			#end
+		});
+		
+		addChild(buttonShowRewardVideo);
+		
+		#if android
+		//Set reward video callbacks
+		
+		AdBuddiz.rewardedVideo.callback.didFetch = function() {
+			textLog.text += "\nReward Video Callback: Fetched. Showing...";
+			// Show the fetched video
+			AdBuddiz.rewardedVideo.show();
+		}
+		AdBuddiz.rewardedVideo.callback.didComplete = function() textLog.text += "\nReward Video Callback: Completed. Give reward here.";
+		AdBuddiz.rewardedVideo.callback.didFail = function(error:String) textLog.text += '\nReward Video Callback: Failed to fetch or show. ERROR $error';
+		AdBuddiz.rewardedVideo.callback.didNotComplete = function() textLog.text += '\nReward Video Callback: Failed to complete. Error happened during playback.';
+		#end
+
 	}
 }
 
